@@ -9,14 +9,16 @@ public class PlayerPlatformerController : PhysicsObject
     [Tooltip("How much force the jump has")]
     [SerializeField] float jumpTakeOffSpeed = 7f;
 
+    private GameObject sprite;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
 	// Use this for initialization
 	void Awake ()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        sprite = transform.Find("Sprite").gameObject;
+        spriteRenderer = sprite.GetComponent<SpriteRenderer>();
+        animator = sprite.GetComponent<Animator>();
 	}   // Awake
 	
 	protected override void ComputeVelocity()
