@@ -24,8 +24,12 @@ public class PlayerShoot : SpawnObject
             {
                 return;
             }
-            Spawn();
-            hasShot = true;
+            if (PlayerManager.current.GetAmmo() > 0)
+            {
+                Spawn();
+                hasShot = true;
+                PlayerManager.current.SubtractAmmo(1);
+            }
         }
 
         if (Input.GetButtonUp("Fire1"))
