@@ -9,20 +9,25 @@ public class LevelLoader : MonoBehaviour {
     public Transform generationPoint;
 
     private int prevEndHeight;
+    private int offset;
+    private int count;
+    private int diff;
 
     // Use this for initialization
     void Start () {
-        int prevEndHeight = cg.MakeLevel("First", 1, 10, 0, GMs);
+        offset = 0;
+        count = 0;
+        diff = 1;
+        int prevEndHeight = cg.MakeLevel("Next", diff, 10, 0, GMs, offset);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if(transform.position.x > generationPoint.position.x ) {
-            generationPoint.position = new Vector3(); //move forward 50 blocks
-            prevEndHeight = cg.MakeLevel("First", 0, prevEndHeight, 0, GMs);
-        }
-        if(false) {
-
+            offset += 50;
+            diff++;
+            generationPoint.position = new Vector3(generationPoint.position.x + 50, generationPoint.position.y, 0); //move forward 50 blocks
+            prevEndHeight = cg.MakeLevel("Next", diff, 10, 0, GMs, offset);
         }
     }
 }

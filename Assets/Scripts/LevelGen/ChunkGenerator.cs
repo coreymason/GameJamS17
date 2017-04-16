@@ -17,12 +17,12 @@ public class ChunkGenerator : MonoBehaviour {
     private int[,] map;
     private Transform chunk;
 
-    public int MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs) {
+    public int MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs, int offset) {
         this.startHeight = startHeight;
         diff = difficulty;
         raise = rampHeight;
         GenerateMap();
-        CreateChunk(holderName, GMs);
+        CreateChunk(holderName, GMs, offset);
         return endHeight;
     }
 
@@ -306,7 +306,7 @@ public class ChunkGenerator : MonoBehaviour {
     //12 is 3x platform
     //13 is basket
     //14 is egg
-    void CreateChunk(string holderName, GameObject[] GMs) {
+    void CreateChunk(string holderName, GameObject[] GMs, int offset) {
         if(map != null) {
             chunk = new GameObject(holderName).transform;
 
@@ -316,7 +316,7 @@ public class ChunkGenerator : MonoBehaviour {
                 {
                     if (map[i, j] != 0)
                     {
-                        GameObject instance = Instantiate(GMs[map[i, j] - 1], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+                        GameObject instance = Instantiate(GMs[map[i, j] - 1], new Vector3(i+offset, j, 0f), Quaternion.identity) as GameObject;
                         instance.transform.SetParent(chunk);
                     }
                 }
