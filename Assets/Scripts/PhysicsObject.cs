@@ -47,7 +47,7 @@ public class PhysicsObject : MonoBehaviour
 
 
     protected virtual void ComputeVelocity()
-    {   // Abstract class
+    {   
 
     }   // ComputeVelocity
 
