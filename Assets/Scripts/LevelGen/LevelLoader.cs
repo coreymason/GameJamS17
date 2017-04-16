@@ -25,7 +25,9 @@ public class LevelLoader : MonoBehaviour {
 	void Update () {
         if(transform.position.x > generationPoint.position.x ) {
             offset += 50;
-            diff++;
+            if(diff < 8) {
+                diff++;
+            }
             generationPoint.position = new Vector3(generationPoint.position.x + 50, generationPoint.position.y, 0); //move forward 50 blocks
             prevEndHeight = cg.MakeLevel("Next", diff, 10, 0, GMs, offset);
         }
