@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour {
 
-    public ChunkGenerator cg;
+    public ChunkGenerator cg = new ChunkGenerator();
     public GameObject[] GMs = new GameObject[14];
     public Transform generationPoint;
 
