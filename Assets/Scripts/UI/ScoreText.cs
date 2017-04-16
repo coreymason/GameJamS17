@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Edit the text of a GUI via script
-public class TextEdit : MonoBehaviour
+public class ScoreText : MonoBehaviour
 {
     Text textField;
 
