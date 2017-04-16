@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour {
 
-    public ChunkGenerator cg = new ChunkGenerator();
+    public ChunkGenerator cg;
     public GameObject[] GMs = new GameObject[14];
     public Transform generationPoint;
 
@@ -12,6 +12,8 @@ public class LevelLoader : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Debug.Log(cg);
+        Debug.Log(GMs);
         int prevEndHeight = cg.MakeLevel("First", 0, 10, 0, GMs);
 	}
 	

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChunkGenerator : MonoBehaviour {
-
     private const int width = 50;
     private const int height = 30;
     private const int gapMinWidth = 1;
@@ -18,6 +17,11 @@ public class ChunkGenerator : MonoBehaviour {
     private int[,] map;
     private Transform chunk;
 
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     public int MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs) {
         this.startHeight = startHeight;
@@ -297,6 +301,7 @@ public class ChunkGenerator : MonoBehaviour {
     //13 is basket
     //14 is egg
     void CreateChunk(string holderName, GameObject[] GMs) {
+        Debug.Log("hello");
         if(map != null) {
             chunk = new GameObject(holderName).transform;
 
