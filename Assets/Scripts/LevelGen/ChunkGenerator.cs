@@ -158,9 +158,7 @@ public class ChunkGenerator : MonoBehaviour {
 
     void DrawPlatforms(List<int[]> platforms) {
         foreach (int[] plat in platforms) {
-            for(int j=0;j<plat[0];j++) {
-                map[plat[1] + j, plat[2]] = 10 + plat[0] - 1;
-            }
+            map[plat[1], plat[2]] = 10 + plat[0] - 1;
         }
     }
 
