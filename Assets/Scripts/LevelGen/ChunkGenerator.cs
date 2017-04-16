@@ -244,17 +244,8 @@ public class ChunkGenerator : MonoBehaviour {
     void DrawGround() {
         int raised = 0;
         for (int i = 0; i < width; i++) {
-            int counter = 0;
             for (int j = 0; j <= startHeight; j++) {
-                if(map[i, j+1] == 0) { //careful with out of bounds
-                    if(counter % 2 == 0) {
-                        map[i, j] = 3;
-                    } else {
-                        map[i, j] = 4;
-                    }
-                } else {
-                    map[i, j] = 1;
-                }
+                map[i, j] = 1;
                 if (j == startHeight && raise > raised) {
                     map[i, j + 1] = 9; //careful with out of bounds
                     startHeight++;
@@ -263,15 +254,35 @@ public class ChunkGenerator : MonoBehaviour {
                 }
             }
         }
+        UpdateGround();
+    }
 
-        for(int i = 0; i < width; i++) {
+    void UpdateGround() {
+        for (int i = 0; i < width; i++) {
+            int counter = 0;
+            for (int j = 0; j <= startHeight; j++) {
+                if (map[i, j + 1] == 0) { //careful with out of bounds
+                    if (counter % 2 == 0) {
+                        map[i, j] = 3;
+                    }
+                    else {
+                        map[i, j] = 4;
+                    }
+                    counter++;
+                }
+            }
+        }
+
+        for (int i = 0; i < width; i++) {
             for (int j = 0; j <= startHeight; j++) {
                 if (map[i, j] == 3 || map[i, j] == 4) {
                     if (i != 0 && i != width - 1 && map[i - 1, j] == 0 && map[i + 1, j] == 0) {
                         map[i, j] = 2;
-                    } else if (i != width-1 && map[i+1, j] == 0) {
+                    }
+                    else if (i != width - 1 && map[i + 1, j] == 0) {
                         map[i, j] = (map[i, j] == 3) ? 7 : 8;
-                    } else if (i != 0 && map[i - 1, j] == 0) {
+                    }
+                    else if (i != 0 && map[i - 1, j] == 0) {
                         map[i, j] = (map[i, j] == 3) ? 5 : 6;
                     }
                 }

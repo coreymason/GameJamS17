@@ -12,8 +12,6 @@ public class LevelLoader : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log(cg);
-        Debug.Log(GMs);
         int prevEndHeight = cg.MakeLevel("First", 1, 10, 0, GMs);
 	}
 	
