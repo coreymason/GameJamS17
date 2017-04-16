@@ -17,12 +17,12 @@ public class LevelLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*if(transform.position.x > generationPoint.position.x ) {
-            generationPoint.position = new Vector3();
+        if(transform.position.x > generationPoint.position.x ) {
+            generationPoint.position = new Vector3(); //move forward 50 blocks
             prevEndHeight = cg.MakeLevel("First", 0, prevEndHeight, 0, GMs);
         }
-        if() {
+        if(false) {
 
-        }*/
+        }
     }
 }

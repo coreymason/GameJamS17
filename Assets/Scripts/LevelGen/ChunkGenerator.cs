@@ -38,14 +38,14 @@ public class ChunkGenerator : MonoBehaviour {
 
         if (diff == 1) {
             DrawGround();
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
         if (diff == 2) {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 8, 2, 1));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
 
         }
@@ -53,7 +53,7 @@ public class ChunkGenerator : MonoBehaviour {
         if (diff == 3) {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 20, 3, 2));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
@@ -84,10 +84,11 @@ public class ChunkGenerator : MonoBehaviour {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 20,4, 3));
             DrawPlatforms(GetPlatforms(0 + raise, 5, 7));
+            DrawRandomBasket(20);
             DrawRandomEgg(numEggs);
         }
 
-        if (diff == 7) {
+        if (diff == 8) {
             DrawGround();
             DrawGaps(GetGaps(0 + raise, 20, 4, 3));
             DrawPlatforms(GetPlatforms(0 + raise, 10, 7));
@@ -95,7 +96,7 @@ public class ChunkGenerator : MonoBehaviour {
             DrawRandomEgg(numEggs);
         }
 
-        if (diff == 8) {
+        if (diff == 9) {
             //only platforms, no ground
         }
 
@@ -111,7 +112,7 @@ public class ChunkGenerator : MonoBehaviour {
     void DrawRandomEgg(int num) {
         int options = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = startHeight + 1; j < height; i++) {
+            for (int j = startHeight + 1; j < height; j++) {
                 if(map[i, j - 1] != 0 && map[i, j - 1] != 13) {
                     options++;
                 }
@@ -120,7 +121,7 @@ public class ChunkGenerator : MonoBehaviour {
         int choice = Random.Range(0, options);
         int count = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = startHeight + 1; j < height; i++) {
+            for (int j = startHeight + 1; j < height; j++) {
                 if (map[i, j - 1] != 0 && map[i, j - 1] != 13) {
                     if (count == choice) {
                         map[i, j] = 14;
@@ -138,14 +139,14 @@ public class ChunkGenerator : MonoBehaviour {
     void DrawRandomBasket(int max) {
         int options = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = startHeight+1; j < Mathf.Min(height, startHeight+1 + max); i++) {
+            for (int j = startHeight+1; j < Mathf.Min(height, startHeight+1 + max); j++) {
                 options++;
             }
         }
         int choice = Random.Range(0, options);
         int count = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = startHeight + 1; j < Mathf.Min(height, startHeight + 1 + max); i++) {
+            for (int j = startHeight + 1; j < Mathf.Min(height, startHeight + 1 + max); j++) {
                 if(count == choice) {
                     map[i, j] = 13;
                 }
