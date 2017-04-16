@@ -40,7 +40,7 @@ public class PlayerShoot : SpawnObject
                 Spawn();
                 hasShot = true;
                 PlayerManager.current.SubtractAmmo(1);
-                CameraShake.current.Shake(shakeAmount, shakeLength, shakeDecrease);
+                //CameraShake.current.Shake(shakeAmount, shakeLength, shakeDecrease);
             }
         }
 
