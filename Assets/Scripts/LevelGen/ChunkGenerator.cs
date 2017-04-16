@@ -8,20 +8,14 @@ public class ChunkGenerator : MonoBehaviour {
     private const int gapMinWidth = 1;
     private const int gapMaxWidth = 5;
 
-    private int startHeight = 10;
-    private int raise = 0;
-    private int diff = 5;
+    private int startHeight;
+    private int raise;
+    private int diff;
 
     private int endHeight;
 
     private int[,] map;
     private Transform chunk;
-
-
-    private void Awake()
-    {
-        current = this;
-    }
 
     public int MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs) {
         this.startHeight = startHeight;
@@ -301,14 +295,16 @@ public class ChunkGenerator : MonoBehaviour {
     //13 is basket
     //14 is egg
     void CreateChunk(string holderName, GameObject[] GMs) {
-        Debug.Log("hello");
         if(map != null) {
             chunk = new GameObject(holderName).transform;
 
-            for (int i=0;i<width;i++) {
-                for(int j=0;j<height;j++) {
-                    if(map[i, j] != 0) {
-                        GameObject instance = Instantiate(GMs[map[i, j]-1], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (map[i, j] != 0)
+                    {
+                        GameObject instance = Instantiate(GMs[map[i, j] - 1], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
                         instance.transform.SetParent(chunk);
                     }
                 }
