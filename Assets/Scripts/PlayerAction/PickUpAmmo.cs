@@ -10,6 +10,6 @@ public class PickUpAmmo : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerManager.current.AddAmmo(ammo);
-        RecycleObject.Recycle(transform.parent.gameObject);
+        Destroy(transform.parent.gameObject);
     }   // OnTriggerEnter2D
 }

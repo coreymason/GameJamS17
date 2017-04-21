@@ -17,17 +17,20 @@ public class ChunkGenerator : MonoBehaviour {
     private int[,] map;
     private Transform chunk;
 
-    public int MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs, int offset) {
+    //TODO: check if ramp height is working
+    //TODO: clouds
+    public Transform MakeLevel(string holderName, int difficulty, int startHeight, int rampHeight, GameObject[] GMs, int offset, ref int newEndHeight) {
         this.startHeight = startHeight;
         diff = difficulty;
         raise = rampHeight;
         GenerateMap();
         CreateChunk(holderName, GMs, offset);
-        return endHeight;
+        newEndHeight = endHeight;
+        return chunk;
     }
 
     void GenerateMap() {
-        map = new int[width, height];
+        map = new int[width, height]; //why not swapped?!
         for(int i=0;i<width;i++) {
             for(int j=0;j<height;j++) {
                 map[i, j] = 0;
@@ -102,8 +105,8 @@ public class ChunkGenerator : MonoBehaviour {
 
         //set endHeight
         for(int i=0;i<height;i++) {
-            if(map[width-1, i] != 0) {
-                endHeight = i + 1;
+            if(map[width-1, height-1-i] != 0) { //TODO: careful about platforms in this last spot
+                endHeight = height - 1 - i;
                 break;
             }
         }
