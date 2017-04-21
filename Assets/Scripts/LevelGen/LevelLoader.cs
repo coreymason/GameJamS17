@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour {
 
@@ -25,6 +26,9 @@ public class LevelLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(transform.position.y < -20) {
+            SceneManager.LoadScene("title");
+        }
         if(transform.position.x > generationPoint.position.x ) {
             if(chunkList.Count > 2) {
                 //delete old chunk
