@@ -41,14 +41,14 @@ public class ChunkGenerator : MonoBehaviour {
 
         if (diff == 1) {
             DrawGround();
-            DrawRandomBasket(10);
+            DrawRandomBasket(5);
             DrawRandomEgg(numEggs);
         }
 
         if (diff == 2) {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 8, 2, 1));
-            DrawRandomBasket(10);
+            DrawRandomBasket(5);
             DrawRandomEgg(numEggs);
 
         }
@@ -56,7 +56,7 @@ public class ChunkGenerator : MonoBehaviour {
         if (diff == 3) {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 20, 3, 2));
-            DrawRandomBasket(10);
+            DrawRandomBasket(5);
             DrawRandomEgg(numEggs);
         }
 
@@ -64,7 +64,7 @@ public class ChunkGenerator : MonoBehaviour {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 20, 3, 2));
             DrawPlatforms(GetPlatforms(0 + raise, 5, 7));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
@@ -72,14 +72,14 @@ public class ChunkGenerator : MonoBehaviour {
             DrawGround();
             DrawGaps(GetGaps(0 + raise, 20, 3, 2));
             DrawPlatforms(GetPlatforms(0 + raise, 10, 7));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
         if (diff == 6) {
             DrawGround();
             DrawGaps(GetGaps(0 + raise, 20, 4, 3));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
@@ -87,7 +87,7 @@ public class ChunkGenerator : MonoBehaviour {
             DrawGround();
             DrawGaps(GetGaps(0+raise, 20,4, 3));
             DrawPlatforms(GetPlatforms(0 + raise, 5, 7));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
@@ -95,16 +95,20 @@ public class ChunkGenerator : MonoBehaviour {
             DrawGround();
             DrawGaps(GetGaps(0 + raise, 20, 4, 3));
             DrawPlatforms(GetPlatforms(0 + raise, 10, 7));
-            DrawRandomBasket(20);
+            DrawRandomBasket(10);
             DrawRandomEgg(numEggs);
         }
 
         if (diff == 9) {
-            //only platforms, no ground
+            DrawPlatforms(GetPlatforms(0 + raise, 25, 15));
+            DrawRandomBasket(10);
+            DrawRandomEgg(numEggs);
+            endHeight = startHeight;
+            return;
         }
 
         //set endHeight
-        for(int i=0;i<height;i++) {
+        for (int i=0;i<height;i++) {
             if(map[width-1, height-1-i] != 0) { //TODO: careful about platforms in this last spot
                 endHeight = height - 1 - i;
                 break;
@@ -116,7 +120,7 @@ public class ChunkGenerator : MonoBehaviour {
         int options = 0;
         for (int i = 0; i < width; i++) {
             for (int j = startHeight + 1; j < height; j++) {
-                if(map[i, j - 1] != 0 && map[i, j - 1] != 13) {
+                if(map[i, j - 1] != 0 && map[i, j - 1] != 13 && map[i, j] != 9) {
                     options++;
                 }
             }
@@ -125,7 +129,7 @@ public class ChunkGenerator : MonoBehaviour {
         int count = 0;
         for (int i = 0; i < width; i++) {
             for (int j = startHeight + 1; j < height; j++) {
-                if (map[i, j - 1] != 0 && map[i, j - 1] != 13) {
+                if (map[i, j - 1] != 0 && map[i, j - 1] != 13 && map[i, j] != 9) {
                     if (count == choice) {
                         map[i, j] = 14;
                     }
@@ -248,13 +252,21 @@ public class ChunkGenerator : MonoBehaviour {
     void DrawGround() {
         int raised = 0;
         for (int i = 0; i < width; i++) {
-            for (int j = 0; j <= startHeight; j++) {
-                map[i, j] = 1;
-                if (j == startHeight && raise > raised) {
+            for (int j = 0; j < height-2; j++) { //should ideally be just -1
+                if(j <= startHeight) {
+                    map[i, j] = 1;
+                }
+                if (i == width-raise+raised &&  j >= startHeight+raised && raise > raised) {
+                    print("heyo"+i+"="+(j+1)+"  ");
                     map[i, j + 1] = 9; //careful with out of bounds
-                    startHeight++;
+                    //startHeight++;
                     raised++;
-                    break;
+                    //break;
+                    if (j > startHeight) {
+                        for (int k = 0; k < raised; k++) {
+                            map[i, j - k] = 1;
+                        }
+                    }
                 }
             }
         }
@@ -265,7 +277,7 @@ public class ChunkGenerator : MonoBehaviour {
         for (int i = 0; i < width; i++) {
             int counter = 0;
             for (int j = 0; j <= startHeight; j++) {
-                if (map[i, j + 1] == 0) { //careful with out of bounds
+                if (map[i, j + 1] == 0 && map[i, j] != 9) { //careful with out of bounds
                     if (counter % 2 == 0) {
                         map[i, j] = 3;
                     }
@@ -319,6 +331,9 @@ public class ChunkGenerator : MonoBehaviour {
                 {
                     if (map[i, j] != 0)
                     {
+                        if(map[i,j] == 9) {
+                            print("rekt");
+                        }
                         GameObject instance = Instantiate(GMs[map[i, j] - 1], new Vector3(i+offset, j, 0f), Quaternion.identity) as GameObject;
                         instance.transform.SetParent(chunk);
                     }

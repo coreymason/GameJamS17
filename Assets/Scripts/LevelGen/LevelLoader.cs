@@ -35,11 +35,22 @@ public class LevelLoader : MonoBehaviour {
                 Destroy(chunkList.Dequeue().gameObject);
             }
             offset += 50;
-            if(diff < 8) {
-                diff++;
+            int raiseVal = 0;
+            if (diff != 9) {
+                raiseVal = Random.Range(0, 3); //change to 4 later and make sure carrots work past raise 2
+                if (diff == 8) {
+                    if(count < 2) {
+                        count++;
+                    } else {
+                        prevEndHeight -= 7;
+                        diff++;
+                    }
+                } else {
+                    diff++;
+                }
             }
             generationPoint.position = new Vector3(generationPoint.position.x + 50, generationPoint.position.y, 0); //move forward 50 blocks
-            chunkList.Enqueue(cg.MakeLevel("Next", diff, prevEndHeight, 0, GMs, offset, ref prevEndHeight));
+            chunkList.Enqueue(cg.MakeLevel("Next", diff, prevEndHeight, raiseVal, GMs, offset, ref prevEndHeight));
             print(prevEndHeight);
         }
     }
